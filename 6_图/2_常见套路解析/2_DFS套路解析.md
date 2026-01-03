@@ -284,13 +284,17 @@ function dfs_post_order(u):
 
 ### 风格一： 本轮递归处理当前节点 - 先剪枝再检查解
 
-#### 先检查剪枝，再检查解
+#### 先检查剪枝, 检查当前节点是否合法
 
 这种风格的函数是 `dfs(currentNode, ...)`，它的任务是处理 `currentNode` 本身。
 
 典型的例子是走迷宫，`dfs(row, col)` 要处理 `(row, col)` 这个格子。
 
 在这种模式下，顺序是：**先检查剪枝，再检查解。**
+
+#### 处理当前节点
+
+#### 递归当前节点的邻居节点
 
 ####**为什么？**
 
@@ -909,9 +913,13 @@ class Solution {
     // 你的 dfs 方法已经完全正确，无需修改
     private double dfs(Map<String, List<Edge>> graph, Set<String> visited, String curr, String target, double accProduct) {
         visited.add(curr);
+      // 检查是否是解
+      //如果是解，返回accProduct
         if (Objects.equals(curr, target)) {
             return accProduct;
         }
+      //如果不是解，继续遍历其邻居节点
+      
         List<Edge> edges = graph.getOrDefault(curr, new ArrayList<>());
         for (Edge edge : edges) {
             String next = edge.to;
